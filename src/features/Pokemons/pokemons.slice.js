@@ -33,7 +33,7 @@ const fetchPokemons = createAsyncThunk(
   }
 );
 
-/* data accessors */
+/* data selectors */
 const selectAllPokemons = (state) => state.pokemons.data;
 const selectPokemonsCount = (state) => state.pokemons.data.count;
 const selectFetchStatus = (state) => state.pokemons.fetch.status;
