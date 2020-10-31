@@ -64,7 +64,6 @@ const pokemonsSlice = createSlice({
 });
 
 const { actions, reducer } = pokemonsSlice;
-export default reducer;
 export const { searchByName } = actions;
 
 export { fetchPokemons };
@@ -76,3 +75,5 @@ export {
   selectSearchName,
   selectSearchResults,
 };
+
+export default reducer;
