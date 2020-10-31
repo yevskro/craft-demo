@@ -6,6 +6,7 @@ const initialState = {
   data: {
     count: 0,
   } /* data will represent pokemons, count will keep track of pokemons in the data */,
+  search: { result: {}, name: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
 };
 
@@ -27,8 +28,8 @@ const fetchPokemons = createAsyncThunk(
     /* count works in relation with pokemon id, the
       starting index of the pokemon we get is count + 1,
       and we wish to download the next 10 */
-    pokemons = await getPokemons(count + 1, 10);
-    return { ...pokemons, count: count + 10 };
+    pokemons = await getPokemons(count + 1, 25);
+    return { ...pokemons, count: count + 25 };
   }
 );
 
@@ -37,11 +38,16 @@ const selectAllPokemons = (state) => state.pokemons.data;
 const selectPokemonsCount = (state) => state.pokemons.data.count;
 const selectFetchStatus = (state) => state.pokemons.fetch.status;
 const selectFetchError = (state) => state.pokemons.fetch.error;
+const selectSearchResults = (state) => state.pokemons.search.results;
+const selectSearchName = (state) => state.pokemons.search.name;
 // const selectPokemonById = (state, id) => 1;
 
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
+  reducers: {
+    searchByName: (state) => state.data,
+  },
   extraReducers: {
     [fetchPokemons.pending]: (state) => {
       state.status = 'loading';
@@ -57,11 +63,16 @@ const pokemonsSlice = createSlice({
   },
 });
 
-export default pokemonsSlice;
+const { actions, reducer } = pokemonsSlice;
+export default reducer;
+export const { searchByName } = actions;
+
 export { fetchPokemons };
 export {
   selectAllPokemons,
   selectPokemonsCount,
   selectFetchStatus,
   selectFetchError,
+  selectSearchName,
+  selectSearchResults,
 };
