@@ -6,7 +6,7 @@ const initialState = {
   data: {
     count: 0,
   } /* data will represent pokemons, count will keep track of pokemons in the data */,
-  search: { result: {}, name: '' },
+  search: { result: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
 };
 
@@ -39,14 +39,14 @@ const selectPokemonsCount = (state) => state.pokemons.data.count;
 const selectFetchStatus = (state) => state.pokemons.fetch.status;
 const selectFetchError = (state) => state.pokemons.fetch.error;
 const selectSearchResults = (state) => state.pokemons.search.results;
-const selectSearchName = (state) => state.pokemons.search.name;
+const selectSearchNamePrefix = (state) => state.pokemons.search.name;
 // const selectPokemonById = (state, id) => 1;
 
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
   reducers: {
-    searchByName: (state) => state.data,
+    searchByNamePrefix: (state) => state.data,
   },
   extraReducers: {
     [fetchPokemons.pending]: (state) => {
@@ -64,7 +64,7 @@ const pokemonsSlice = createSlice({
 });
 
 const { actions, reducer } = pokemonsSlice;
-export const { searchByName } = actions;
+export const { searchByNamePrefix } = actions;
 
 export { fetchPokemons };
 export {
@@ -72,7 +72,7 @@ export {
   selectPokemonsCount,
   selectFetchStatus,
   selectFetchError,
-  selectSearchName,
+  selectSearchNamePrefix,
   selectSearchResults,
 };
 
