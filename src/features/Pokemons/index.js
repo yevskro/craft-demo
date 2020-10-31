@@ -15,10 +15,8 @@ function Pokemons() {
   const fetchStatus = useSelector(selectFetchStatus);
 
   useEffect(() => {
-    if (fetchStatus === 'idle') {
+    if (fetchStatus === 'idle' && pokemonsCount !== 151) {
       dispatch(fetchPokemons());
-    } else if (fetchStatus === 'succeeded') {
-      if (pokemonsCount !== 151) dispatch(fetchPokemons());
     }
   }, [fetchStatus, pokemonsCount, dispatch]);
 
