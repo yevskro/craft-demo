@@ -1,7 +1,12 @@
 import React from 'react';
+import Pokemons from '../features/Pokemons';
 
 function App() {
-  return <>Craft Demo</>;
+  return (
+    <>
+      <Pokemons />
+    </>
+  );
 }
 
 export default App;
