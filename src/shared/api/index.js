@@ -13,5 +13,28 @@ const SAN_DIEGO_DEFAULT_HEADERS = {
   'x-api-key': POKEMON_API_KEY,
 };
 
+async function getPokemons(from, to) {
+  const pokemons = {};
+  const promises = [];
+  for (let c = from; c <= to; c += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    promises.push(
+      fetch(`${POKEMON_API_URL}/${c}`, {
+        method: 'GET',
+        headers: DEFAULT_HEADERS,
+        mode: 'cors',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          pokemons[c] = {};
+          pokemons[c].name = data.name;
+          pokemons[c].url = data.sprites.front_default;
+        })
+    );
+  }
+  await Promise.all(promises);
+  return pokemons;
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export { getPokemons };
