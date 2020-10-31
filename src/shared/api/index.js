@@ -13,7 +13,7 @@ const SAN_DIEGO_DEFAULT_HEADERS = {
   'x-api-key': POKEMON_API_KEY,
 };
 
-async function getPokemons(fromId, toId) {
+async function getPokemons(fromId, count) {
   /* 
     this function will get pokemon information
     from a range of pokemon id allowing us to
@@ -22,7 +22,7 @@ async function getPokemons(fromId, toId) {
   */
   const pokemons = {}; /* will hold the batched data */
   const promises = []; /* promises that will download the content */
-  for (let id = fromId; id <= toId; id += 1) {
+  for (let id = fromId; id <= fromId + count; id += 1) {
     // eslint-disable-next-line no-await-in-loop
     promises.push(
       fetch(`${POKEMON_API_URL}/${id}`, {
