@@ -13,26 +13,32 @@ const SAN_DIEGO_DEFAULT_HEADERS = {
   'x-api-key': POKEMON_API_KEY,
 };
 
-async function getPokemons(from, to) {
-  const pokemons = {};
-  const promises = [];
-  for (let c = from; c <= to; c += 1) {
+async function getPokemons(fromId, toId) {
+  /* 
+    this function will get pokemon information
+    from a range of pokemon id allowing us to
+    batch data instead of downloading all pokemon
+    information
+  */
+  const pokemons = {}; /* will hold the batched data */
+  const promises = []; /* promises that will download the content */
+  for (let id = fromId; id <= toId; id += 1) {
     // eslint-disable-next-line no-await-in-loop
     promises.push(
-      fetch(`${POKEMON_API_URL}/${c}`, {
+      fetch(`${POKEMON_API_URL}/${id}`, {
         method: 'GET',
         headers: DEFAULT_HEADERS,
         mode: 'cors',
       })
         .then((response) => response.json())
         .then((data) => {
-          pokemons[c] = {};
-          pokemons[c].name = data.name;
-          pokemons[c].url = data.sprites.front_default;
+          pokemons[id] = {};
+          pokemons[id].name = data.name;
+          pokemons[id].url = data.sprites.front_default;
         })
     );
   }
-  await Promise.all(promises);
+  await Promise.all(promises); /* wait for all content to download */
   return pokemons;
 }
 
