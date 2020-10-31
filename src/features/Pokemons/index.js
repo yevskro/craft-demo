@@ -5,6 +5,8 @@ import {
   selectAllPokemons,
   selectPokemonsCount,
   selectFetchStatus,
+  selectSearchResults,
+  searchByNamePrefix,
   fetchPokemons,
 } from './pokemons.slice';
 
@@ -13,6 +15,7 @@ function Pokemons() {
   const pokemons = useSelector(selectAllPokemons);
   const pokemonsCount = useSelector(selectPokemonsCount);
   const fetchStatus = useSelector(selectFetchStatus);
+  const searchResults = useSelector(selectSearchResults);
 
   useEffect(() => {
     /* 
