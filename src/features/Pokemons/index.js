@@ -15,6 +15,10 @@ function Pokemons() {
   const fetchStatus = useSelector(selectFetchStatus);
 
   useEffect(() => {
+    /* 
+      downloads the appropriate amount of 
+      batches of pokemon info(name, url) 
+    */
     if (fetchStatus === 'idle' && pokemonsCount !== 151) {
       dispatch(fetchPokemons());
     }
@@ -22,7 +26,7 @@ function Pokemons() {
 
   const imgs = [];
   for (let idx = 1; idx <= pokemonsCount; idx += 1) {
-    imgs.push(<img src={pokemons[idx].url} key={idx} alt="" />);
+    imgs.push(<img src={pokemons[idx].url} key={idx} alt="" loading="lazy" />);
   }
 
   return <>{imgs}</>;
