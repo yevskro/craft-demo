@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import GoogleMap from '../../../shared/components/GoogleMap';
 
 import { selectPokemon, fetchPokemon } from '../pokedex.slice';
 
@@ -14,7 +15,17 @@ function Pokemon() {
     dispatch(fetchPokemon(id));
   }, [id, dispatch]);
 
-  return <>{JSON.stringify(pokemon)}</>;
+  return (
+    <>
+      <GoogleMap
+        apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
+        center={{ lat: 32.821581, lng: -117.022656 }}
+        width="550px"
+        height="350px"
+        markerLocations={pokemon[id] ? pokemon[id].locations : undefined}
+      />
+    </>
+  );
 }
 
 export default Pokemon;
