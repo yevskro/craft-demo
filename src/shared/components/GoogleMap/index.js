@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-function Map({ center, markerLocations, width, height }) {
+function Map({ center, markerLocations, width, height, zoom }) {
   function markerElements() {
     return markerLocations.map((location) => {
       const [lat, lng] = location.split(',');
@@ -22,7 +22,7 @@ function Map({ center, markerLocations, width, height }) {
       <GoogleMap
         mapContainerStyle={{ width, height }}
         center={center}
-        zoom={10}
+        zoom={zoom}
       >
         {markerLocations ? markerElements() : ''}
       </GoogleMap>
