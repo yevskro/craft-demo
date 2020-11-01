@@ -7,14 +7,14 @@ const initialState = {
   pokemons: {
     count: 0,
   },
-  baggedPokemons: {
+  /* baggedPokemons: {
     count: 0,
   },
-  selectedPokemon: {},
+  selectedPokemon: {}, */
   searchPokemons: { results: {}, namePrefix: '' },
-  searchBaggedPokemons: { results: {}, namePrefix: '' },
+  // searchBaggedPokemons: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
-  loadStorage: { status: 'idle', error: null },
+  // loadStorage: { status: 'idle', error: null },
 };
 
 const fetchPokemons = createAsyncThunk(
@@ -46,9 +46,9 @@ const selectPokemonsCount = (state) => state.pokedex.pokemons.count;
 const selectFetchStatus = (state) => state.pokedex.fetch.status;
 const selectFetchError = (state) => state.pokedex.fetch.error;
 const selectSearchPokemonsResults = (state) =>
-  state.pokedex.searchPokemon.results;
+  state.pokedex.searchPokemons.results;
 const selectSearchPokemonsNamePrefix = (state) =>
-  state.pokedex.searchPokemon.namePrefix;
+  state.pokedex.searchPokemons.namePrefix;
 
 const pokedexSlice = createSlice({
   name: 'pokedex',
@@ -68,7 +68,7 @@ const pokedexSlice = createSlice({
     },
     [fetchPokemons.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      state.pokemons = { ...state.data, ...action.payload };
+      state.pokemons = { ...state.pokemons, ...action.payload };
       state.searchPokemons.results = filterPokemonsByNamePrefix(
         state.pokemons,
         state.searchPokemons.namePrefix
