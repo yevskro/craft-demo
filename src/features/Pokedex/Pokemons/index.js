@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard';
 import PokemonPlaceholder from '../PokemonPlaceholder';
 
@@ -45,12 +46,24 @@ function Pokemons({ bagged }) {
       if (keys) {
         if (searchResults[keys[idx]]) {
           const { url, name } = searchResults[keys[idx]];
-          pokemons.push(<PokemonCard url={url} name={name} />);
+          pokemons.push(
+            <Link
+              to={`/pokemon/${keys[idx]}`}
+              key={`pokemon-card-${keys[idx]}`}
+            >
+              <PokemonCard url={url} name={name} />
+            </Link>
+          );
         }
       } else if (searchResults[idx]) {
         const { url, name } = searchResults[idx];
-        pokemons.push(<PokemonCard url={url} name={name} />);
-      } else pokemons.push(<PokemonPlaceholder />);
+        pokemons.push(
+          <Link to={`/pokemon/${idx}`} key={`pokemon-card-${idx}`}>
+            <PokemonCard url={url} name={name} />
+          </Link>
+        );
+      } else
+        pokemons.push(<PokemonPlaceholder key={`pokemon-holder-${idx}`} />);
     }
     return pokemons;
   }
