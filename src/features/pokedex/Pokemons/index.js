@@ -3,15 +3,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectPokemonsCount,
-  selectSearchResults,
-  searchByNamePrefix,
+  selectSearchPokemonsResults,
+  searchPokemonsByNamePrefix,
   fetchPokemons,
-} from './pokemons.slice';
+} from '../pokedex.slice';
 
 function Pokemons() {
   const dispatch = useDispatch();
   const pokemonsCount = useSelector(selectPokemonsCount);
-  const searchResults = useSelector(selectSearchResults);
+  const searchResults = useSelector(selectSearchPokemonsResults);
 
   useEffect(() => {
     /* 
@@ -35,7 +35,7 @@ function Pokemons() {
     <>
       <input
         type="text"
-        onChange={(e) => dispatch(searchByNamePrefix(e.target.value))}
+        onChange={(e) => dispatch(searchPokemonsByNamePrefix(e.target.value))}
       />
       <br />
       {imgs}
