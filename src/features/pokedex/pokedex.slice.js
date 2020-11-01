@@ -35,8 +35,8 @@ const fetchPokemons = createAsyncThunk(
     /* count works in relation with pokemon id, the
       starting index of the pokemon we get is count + 1,
       and we wish to download the next 10 */
-    fetchedPokemons = await getPokemons(count + 1, 25);
-    return { ...fetchedPokemons, count: count + 25 };
+    fetchedPokemons = await getPokemons(count + 1, 10);
+    return { ...fetchedPokemons, count: count + 10 };
   }
 );
 
