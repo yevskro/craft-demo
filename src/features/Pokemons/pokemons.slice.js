@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getPokemons } from '../../shared/api';
+import { filterPokemonsByNamePrefix } from '../../shared/utils/pokemons';
+import { getPokemons } from '../../shared/utils/api';
 
 const initialState = {
   data: {
     count: 0,
   } /* data will represent pokemons, count will keep track of pokemons in the data */,
-  search: { result: {}, namePrefix: '' },
+  search: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
 };
 
@@ -39,14 +40,19 @@ const selectPokemonsCount = (state) => state.pokemons.data.count;
 const selectFetchStatus = (state) => state.pokemons.fetch.status;
 const selectFetchError = (state) => state.pokemons.fetch.error;
 const selectSearchResults = (state) => state.pokemons.search.results;
-const selectSearchNamePrefix = (state) => state.pokemons.search.name;
-// const selectPokemonById = (state, id) => 1;
+const selectSearchNamePrefix = (state) => state.pokemons.search.namePrefix;
 
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
   reducers: {
-    searchByNamePrefix: (state) => state.data,
+    searchByNamePrefix: (state, action) => {
+      state.search.namePrefix = action.payload;
+      state.search.results = filterPokemonsByNamePrefix(
+        state.data,
+        action.payload
+      );
+    },
   },
   extraReducers: {
     [fetchPokemons.pending]: (state) => {
@@ -55,6 +61,10 @@ const pokemonsSlice = createSlice({
     [fetchPokemons.fulfilled]: (state, action) => {
       state.status = 'succeeded';
       state.data = { ...state.data, ...action.payload };
+      state.search.results = filterPokemonsByNamePrefix(
+        state.data,
+        state.search.namePrefix
+      );
     },
     [fetchPokemons.rejected]: (state, action) => {
       state.status = 'failed';
