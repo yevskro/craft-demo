@@ -4,15 +4,20 @@ import { filterPokemonsByNamePrefix } from '../../shared/utils/pokemons';
 import { getPokemons } from '../../shared/utils/api';
 
 const initialState = {
-  data: {
+  pokemons: {
     count: 0,
-  } /* data will represent pokemons, count will keep track of pokemons in the data */,
-  search: { results: {}, namePrefix: '' },
+  },
+  selectedPokemon: {},
+  baggedPokemons: {
+    count: 0,
+  },
+  searchPokemons: { results: {}, namePrefix: '' },
+  searchBaggedPokemons: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
 };
 
 const fetchPokemons = createAsyncThunk(
-  'pokemons/fetchPokemons',
+  'pokedex/fetchPokemons',
   // eslint-disable-next-line no-unused-vars
   async (_, thunkApi) => {
     const {
@@ -43,7 +48,7 @@ const selectSearchResults = (state) => state.pokemons.search.results;
 const selectSearchNamePrefix = (state) => state.pokemons.search.namePrefix;
 
 const pokemonsSlice = createSlice({
-  name: 'pokemons',
+  name: 'pokedex',
   initialState,
   reducers: {
     searchByNamePrefix: (state, action) => {
