@@ -32,7 +32,7 @@ const StyledSwitch = styled.label`
     border-bottom: 2px solid black;
   }
 
-  box-shadow: 2px 3px;
+  box-shadow: 2px 5px;
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
