@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 // import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectAllPokemons,
   selectPokemonsCount,
-  selectFetchStatus,
   selectSearchResults,
   searchByNamePrefix,
   fetchPokemons,
@@ -12,9 +10,7 @@ import {
 
 function Pokemons() {
   const dispatch = useDispatch();
-  const pokemons = useSelector(selectAllPokemons);
   const pokemonsCount = useSelector(selectPokemonsCount);
-  const fetchStatus = useSelector(selectFetchStatus);
   const searchResults = useSelector(selectSearchResults);
 
   useEffect(() => {
@@ -22,17 +18,29 @@ function Pokemons() {
       downloads the appropriate amount of 
       batches of pokemon info(name, url) 
     */
-    if (fetchStatus === 'idle' && pokemonsCount !== 151) {
+    if (pokemonsCount !== 151) {
       dispatch(fetchPokemons());
     }
-  }, [fetchStatus, pokemonsCount, dispatch]);
+  }, [pokemonsCount, dispatch]);
 
   const imgs = [];
-  for (let idx = 1; idx <= pokemonsCount; idx += 1) {
-    imgs.push(<img src={pokemons[idx].url} key={idx} alt="" loading="lazy" />);
+  const keys = Object.keys(searchResults);
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    imgs.push(
+      <img src={searchResults[keys[idx]].url} key={idx} alt="" loading="lazy" />
+    );
   }
 
-  return <>{imgs}</>;
+  return (
+    <>
+      <input
+        type="text"
+        onChange={(e) => dispatch(searchByNamePrefix(e.target.value))}
+      />
+      <br />
+      {imgs}
+    </>
+  );
 }
 
 export default Pokemons;
