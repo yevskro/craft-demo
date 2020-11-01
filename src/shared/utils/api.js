@@ -57,7 +57,7 @@ async function getPokemons(fromId, count) {
   const pokemons = {}; /* will hold the batched data */
   const promises = []; /* promises that will download the content */
 
-  for (let id = fromId; id <= fromId + count; id += 1) {
+  for (let id = fromId; id < fromId + count; id += 1) {
     // eslint-disable-next-line no-await-in-loop
     promises.push(
       fetch(`${POKEMON_API_SPRITE_URL}/${id}`, {
