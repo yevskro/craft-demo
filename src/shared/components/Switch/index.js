@@ -21,6 +21,18 @@ const StyledSwitch = styled.label`
   > input {
     display: none;
   }
+
+  input + span {
+    border: 2px solid black;
+  }
+
+  span + span {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+
+  box-shadow: 2px 3px;
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
