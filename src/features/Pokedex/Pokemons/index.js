@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -26,12 +26,12 @@ function Pokemons({ bagged }) {
     */
     if (bagged) {
       // place holder for reading bagged pokemons
-    } else if (pokemonsCount !== 151) {
+    } else if (pokemonsCount < 151) {
       dispatch(fetchPokemons());
     }
   }, [pokemonsCount, bagged, dispatch]);
 
-  function pokemonsElements() {
+  const pokemonsElements = useCallback(() => {
     let from = 1;
     let to = 151;
     let keys;
@@ -47,10 +47,7 @@ function Pokemons({ bagged }) {
         if (searchResults[keys[idx]]) {
           const { url, name } = searchResults[keys[idx]];
           pokemons.push(
-            <Link
-              to={`/pokemon/${keys[idx]}`}
-              key={`pokemon-card-${keys[idx]}`}
-            >
+            <Link to={`/pokemon/${keys[idx]}`} key={`pokemon-card-${name}`}>
               <PokemonCard url={url} name={name} />
             </Link>
           );
@@ -58,7 +55,7 @@ function Pokemons({ bagged }) {
       } else if (searchResults[idx]) {
         const { url, name } = searchResults[idx];
         pokemons.push(
-          <Link to={`/pokemon/${idx}`} key={`pokemon-card-${idx}`}>
+          <Link to={`/pokemon/${idx}`} key={`pokemon-card-${name}`}>
             <PokemonCard url={url} name={name} />
           </Link>
         );
@@ -66,7 +63,9 @@ function Pokemons({ bagged }) {
         pokemons.push(<PokemonPlaceholder key={`pokemon-holder-${idx}`} />);
     }
     return pokemons;
-  }
+  }, [searchResults, searchPokemonsNamePrefix]);
+
+  const pokemons = useMemo(() => pokemonsElements(), [pokemonsElements]);
 
   return (
     <>
@@ -77,7 +76,7 @@ function Pokemons({ bagged }) {
           value={searchPokemonsNamePrefix}
         />
       </SearchContainer>
-      <PokemonContainer>{bagged || pokemonsElements()}</PokemonContainer>
+      <PokemonContainer>{bagged ? 'bagged' : pokemons}</PokemonContainer>
     </>
   );
 }
