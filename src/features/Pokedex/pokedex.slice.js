@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { filterPokemonsByNamePrefix } from '../../shared/utils/pokedex';
-import { getPokemons } from '../../shared/utils/api';
+import { getPokemons, getPokemon } from '../../shared/utils/api';
 
 const initialState = {
   pokemons: {
@@ -10,6 +10,7 @@ const initialState = {
   /* baggedPokemons: {
     count: 0,
   }, */
+  pokemon: {},
   searchPokemons: { results: {}, namePrefix: '' },
   // searchBaggedPokemons: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
@@ -17,7 +18,7 @@ const initialState = {
 };
 
 const fetchPokemon = createAsyncThunk('pokedex/fetchPokemon', async (id) => {
-  return getPokemons(id, 1);
+  return getPokemon(id);
 });
 
 const fetchPokemons = createAsyncThunk(
@@ -52,6 +53,7 @@ const selectSearchPokemonsResults = (state) =>
   state.pokedex.searchPokemons.results;
 const selectSearchPokemonsNamePrefix = (state) =>
   state.pokedex.searchPokemons.namePrefix;
+const selectPokemon = (state) => state.pokedex.pokemon;
 
 const pokedexSlice = createSlice({
   name: 'pokedex',
@@ -63,10 +65,6 @@ const pokedexSlice = createSlice({
         state.pokemons,
         action.payload
       );
-    },
-    selectPokemon: (state, action) => {
-      state.selectPokemon = {};
-      state.selectPokemon.id = action.payload;
     },
   },
   extraReducers: {
@@ -85,6 +83,18 @@ const pokedexSlice = createSlice({
       state.status = 'failed';
       state.error = action.error.message;
     },
+    [fetchPokemon.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [fetchPokemon.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
+      console.log(action);
+      state.pokemon = { ...action.payload };
+    },
+    [fetchPokemon.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+    },
   },
 });
 
@@ -99,6 +109,7 @@ export {
   selectFetchError,
   selectSearchPokemonsNamePrefix,
   selectSearchPokemonsResults,
+  selectPokemon,
 };
 
 export default reducer;
