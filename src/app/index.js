@@ -1,12 +1,8 @@
 import React from 'react';
-import Pokemons from '../features/Pokemons';
+import Pokedex from '../features/Pokedex';
 
 function App() {
-  return (
-    <>
-      <Pokemons />
-    </>
-  );
+  return <Pokedex />;
 }
 
 export default App;
