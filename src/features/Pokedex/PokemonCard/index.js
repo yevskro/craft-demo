@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PokemonCard({ url, name }) {
+function PokemonCard({ url, name, width, height }) {
   return (
-    <StyledPokemonCard>
-      <img src={url} loading="lazy" alt="" width="128px" height="128px" />
+    <StyledPokemonCard width={width}>
+      <img src={url} loading="lazy" alt="" width={width} height={height} />
       <span>{name}</span>
     </StyledPokemonCard>
   );
@@ -12,7 +12,7 @@ function PokemonCard({ url, name }) {
 
 const StyledPokemonCard = styled.div`
   display: inline-block;
-  width: 128px;
+  width: ${(props) => props.width};
   text-align: center;
 `;
 

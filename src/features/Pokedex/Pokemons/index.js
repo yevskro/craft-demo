@@ -48,7 +48,7 @@ function Pokemons({ bagged }) {
           const { url, name } = searchResults[keys[idx]];
           pokemons.push(
             <Link to={`/pokemon/${keys[idx]}`} key={`pokemon-card-${name}`}>
-              <PokemonCard url={url} name={name} />
+              <PokemonCard url={url} name={name} width="128px" height="128px" />
             </Link>
           );
         }
@@ -56,7 +56,7 @@ function Pokemons({ bagged }) {
         const { url, name } = searchResults[idx];
         pokemons.push(
           <Link to={`/pokemon/${idx}`} key={`pokemon-card-${name}`}>
-            <PokemonCard url={url} name={name} />
+            <PokemonCard url={url} name={name} width="128px" height="128px" />
           </Link>
         );
       } else
