@@ -9,13 +9,16 @@ const initialState = {
   },
   /* baggedPokemons: {
     count: 0,
-  },
-  selectedPokemon: {}, */
+  }, */
   searchPokemons: { results: {}, namePrefix: '' },
   // searchBaggedPokemons: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
   // loadStorage: { status: 'idle', error: null },
 };
+
+const fetchPokemon = createAsyncThunk('pokedex/fetchPokemon', async (id) => {
+  return getPokemons(id, 1);
+});
 
 const fetchPokemons = createAsyncThunk(
   'pokedex/fetchPokemons',
@@ -61,6 +64,10 @@ const pokedexSlice = createSlice({
         action.payload
       );
     },
+    selectPokemon: (state, action) => {
+      state.selectPokemon = {};
+      state.selectPokemon.id = action.payload;
+    },
   },
   extraReducers: {
     [fetchPokemons.pending]: (state) => {
@@ -84,7 +91,7 @@ const pokedexSlice = createSlice({
 const { actions, reducer } = pokedexSlice;
 export const { searchPokemonsByNamePrefix } = actions;
 
-export { fetchPokemons };
+export { fetchPokemons, fetchPokemon };
 export {
   selectAllPokemons,
   selectPokemonsCount,
