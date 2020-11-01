@@ -16,6 +16,7 @@ const SAN_DIEGO_HEADERS = {
 async function getPokemon(id) {
   /* 
     this function will get a more detailed pokemon information
+    including its location in San Diego
   */
   const pokemon = {};
   const responsePokemonAPI = await fetch(`${POKEMON_API_DETAIL_URL}/${id}`, {
@@ -23,7 +24,8 @@ async function getPokemon(id) {
     headers: DEFAULT_HEADERS,
     mode: 'cors',
   });
-  const dataPokeAPI = responsePokemonAPI.json();
+
+  const dataPokeAPI = await responsePokemonAPI.json();
   pokemon[id] = {};
   pokemon[id].name = dataPokeAPI.name;
   pokemon[id].url = dataPokeAPI.sprites.front_default;
@@ -31,7 +33,6 @@ async function getPokemon(id) {
   pokemon[id].height = dataPokeAPI.height;
   pokemon[id].types = dataPokeAPI.types;
   pokemon[id].abilities = dataPokeAPI.abilities;
-  pokemon[id].skills = dataPokeAPI.moves;
   pokemon[id].description = 'durran durran';
 
   const responseSanDiegoAPI = await fetch(`${SAN_DIEGO_MAP_API_URL}/${id}`, {
@@ -40,8 +41,9 @@ async function getPokemon(id) {
     mode: 'cors',
   });
 
-  const dataMapAPI = responseSanDiegoAPI.json();
-  console.log(dataMapAPI);
+  const dataMapAPI = await responseSanDiegoAPI.json();
+  pokemon[id].locations = dataMapAPI.locations;
+
   return pokemon;
 }
 
