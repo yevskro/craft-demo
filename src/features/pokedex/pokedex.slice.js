@@ -1,19 +1,20 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { filterPokemonsByNamePrefix } from '../../shared/utils/pokemons';
+import { filterPokemonsByNamePrefix } from '../../shared/utils/pokedex';
 import { getPokemons } from '../../shared/utils/api';
 
 const initialState = {
   pokemons: {
     count: 0,
   },
-  selectedPokemon: {},
   baggedPokemons: {
     count: 0,
   },
+  selectedPokemon: {},
   searchPokemons: { results: {}, namePrefix: '' },
   searchBaggedPokemons: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
+  loadStorage: { status: 'idle', error: null },
 };
 
 const fetchPokemons = createAsyncThunk(
@@ -22,39 +23,41 @@ const fetchPokemons = createAsyncThunk(
   async (_, thunkApi) => {
     const {
       count,
-    } = thunkApi.getState().pokemons.data; /* get the current count */
-    let pokemons;
+    } = thunkApi.getState().pokedex.pokemons; /* get the current count */
+    let fetchedPokemons;
 
     if (count === 150) {
       /* if the count is 150 then we only need to get one more */
-      pokemons = await getPokemons(151, 1);
-      return { ...pokemons, count: 151 };
+      fetchedPokemons = await getPokemons(151, 1);
+      return { ...fetchedPokemons, count: 151 };
     }
 
     /* count works in relation with pokemon id, the
       starting index of the pokemon we get is count + 1,
       and we wish to download the next 10 */
-    pokemons = await getPokemons(count + 1, 25);
-    return { ...pokemons, count: count + 25 };
+    fetchedPokemons = await getPokemons(count + 1, 25);
+    return { ...fetchedPokemons, count: count + 25 };
   }
 );
 
 /* data selectors */
-const selectAllPokemons = (state) => state.pokemons.data;
-const selectPokemonsCount = (state) => state.pokemons.data.count;
-const selectFetchStatus = (state) => state.pokemons.fetch.status;
-const selectFetchError = (state) => state.pokemons.fetch.error;
-const selectSearchResults = (state) => state.pokemons.search.results;
-const selectSearchNamePrefix = (state) => state.pokemons.search.namePrefix;
+const selectAllPokemons = (state) => state.pokedex.pokemons;
+const selectPokemonsCount = (state) => state.pokedex.pokemons.count;
+const selectFetchStatus = (state) => state.pokedex.fetch.status;
+const selectFetchError = (state) => state.pokedex.fetch.error;
+const selectSearchPokemonsResults = (state) =>
+  state.pokedex.searchPokemon.results;
+const selectSearchPokemonsNamePrefix = (state) =>
+  state.pokedex.searchPokemon.namePrefix;
 
-const pokemonsSlice = createSlice({
+const pokedexSlice = createSlice({
   name: 'pokedex',
   initialState,
   reducers: {
-    searchByNamePrefix: (state, action) => {
-      state.search.namePrefix = action.payload;
-      state.search.results = filterPokemonsByNamePrefix(
-        state.data,
+    searchPokemonsByNamePrefix: (state, action) => {
+      state.searchPokemons.namePrefix = action.payload;
+      state.searchPokemons.results = filterPokemonsByNamePrefix(
+        state.pokemons,
         action.payload
       );
     },
@@ -65,10 +68,10 @@ const pokemonsSlice = createSlice({
     },
     [fetchPokemons.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      state.data = { ...state.data, ...action.payload };
-      state.search.results = filterPokemonsByNamePrefix(
-        state.data,
-        state.search.namePrefix
+      state.pokemons = { ...state.data, ...action.payload };
+      state.searchPokemons.results = filterPokemonsByNamePrefix(
+        state.pokemons,
+        state.searchPokemons.namePrefix
       );
     },
     [fetchPokemons.rejected]: (state, action) => {
@@ -78,8 +81,8 @@ const pokemonsSlice = createSlice({
   },
 });
 
-const { actions, reducer } = pokemonsSlice;
-export const { searchByNamePrefix } = actions;
+const { actions, reducer } = pokedexSlice;
+export const { searchPokemonsByNamePrefix } = actions;
 
 export { fetchPokemons };
 export {
@@ -87,8 +90,8 @@ export {
   selectPokemonsCount,
   selectFetchStatus,
   selectFetchError,
-  selectSearchNamePrefix,
-  selectSearchResults,
+  selectSearchPokemonsNamePrefix,
+  selectSearchPokemonsResults,
 };
 
 export default reducer;
