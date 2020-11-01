@@ -23,6 +23,7 @@ function Pokemon() {
         width="550px"
         height="350px"
         markerLocations={pokemon[id] ? pokemon[id].locations : undefined}
+        zoom={9}
       />
     </>
   );
