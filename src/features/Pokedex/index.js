@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Switch from '../../shared/components/Switch';
 import Pokemons from './Pokemons';
-import BaggedPokemons from './BaggedPokemons';
 
 function Pokedex() {
   const [renderBaggedPokemons, setRenderBaggedPokemons] = useState(false);
@@ -25,7 +24,7 @@ function Pokedex() {
           onRightSelected={handleBag}
         />
       </SwitchContainer>
-      {renderBaggedPokemons ? <BaggedPokemons /> : <Pokemons />}
+      {renderBaggedPokemons ? <Pokemons bagged /> : <Pokemons />}
     </>
   );
 }
