@@ -1,5 +1,4 @@
 import React from 'react';
-import Toggle from 'react-styled-toggle';
 import Switch from '../../shared/components/Switch';
 
 function Pokedex() {
