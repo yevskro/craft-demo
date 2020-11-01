@@ -88,7 +88,6 @@ const pokedexSlice = createSlice({
     },
     [fetchPokemon.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      console.log(action);
       state.pokemon = { ...action.payload };
     },
     [fetchPokemon.rejected]: (state, action) => {
