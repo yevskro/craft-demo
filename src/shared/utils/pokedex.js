@@ -11,4 +11,20 @@ function filterPokemonsByNamePrefix(pokemons, prefix) {
   return obj;
 }
 
-export { filterPokemonsByNamePrefix };
+/* eslint-disable import/prefer-default-export */
+function filterBaggedPokemonsByNamePrefix(pokemons, prefix) {
+  const obj = {};
+  const keys = Object.keys(pokemons);
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    if (keys[idx] >= '0' && keys[idx] <= 9) {
+      const subString = pokemons[keys[idx]].name.substring(0, prefix.length);
+      /* enforce case insensitivity */
+      if (subString.toUpperCase() === prefix.toUpperCase()) {
+        obj[keys[idx]] = pokemons[keys[idx]];
+      }
+    }
+  }
+  return obj;
+}
+
+export { filterPokemonsByNamePrefix, filterBaggedPokemonsByNamePrefix };
