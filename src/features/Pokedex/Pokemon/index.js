@@ -33,7 +33,7 @@ function Pokemon() {
     if (loadStatus === 'idle') {
       dispatch(loadPokemons());
     }
-  }, [loadStatus]);
+  }, [loadStatus, dispatch]);
 
   const pokemonLoaded =
     pokemon[id]; /* used later to check if we can render details or not */
