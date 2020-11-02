@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Search({ search, searchCbFn }) {
+function Search({ search, onSearch }) {
   return (
     <SearchContainer>
       <SearchIcon src="/search.png" />
       <SearchInput
         type="text"
-        onChange={(e) => searchCbFn(e)}
+        onChange={(e) => onSearch(e)}
         value={search}
         placeholder="search"
       />
