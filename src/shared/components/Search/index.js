@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Search({ search, onSearch }) {
+  /* onSearch computes search */
   return (
     <SearchContainer>
       <SearchIcon src="/search.png" alt="search icon" />
