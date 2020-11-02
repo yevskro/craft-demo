@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+.c0 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (min-width:400px) {
+  .c0 {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media (min-width:700px) {
+  .c0 {
+    margin-left: 11%;
+    margin-right: 11%;
+  }
+}
+
+<div
+  className="c0"
+>
+  test
+</div>
+`;
