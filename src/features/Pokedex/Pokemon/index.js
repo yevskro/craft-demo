@@ -109,7 +109,7 @@ const ListAbility = styled.li`
 
 const AbilitiesHeader = styled.h3`
   display: inline-block;
-  margin-left: 40%;
+  margin-left: 38%;
   margin-top: 15px;
   text-align: center;
 `;
@@ -128,7 +128,7 @@ const Detail = styled.span`
 const Description = styled.p`
   margin-top: 15px;
   font-weight: bold;
-  width: 60%;
+  width: 55%;
 `;
 
 const ListTypes = styled.ul`
@@ -143,13 +143,13 @@ const ListType = styled.li`
 
 const Body = styled.div`
   display: inline-block;
-  width: 40%;
+  width: 38%;
   vertical-align: top;
 `;
 
 const Map = styled.div`
   display: inline-flex;
-  width: 59%;
+  width: 61%;
 `;
 
 const Abilities = styled.div``;
