@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard';
 import PokemonPlaceholder from '../PokemonPlaceholder';
+import Search from '../../../shared/components/Search';
 
 import {
   selectPokemonsCount,
@@ -13,7 +14,7 @@ import {
   fetchPokemons,
 } from '../pokedex.slice';
 
-function Pokemons({ bagged }) {
+function Pokemons() {
   const dispatch = useDispatch();
   const pokemonsCount = useSelector(selectPokemonsCount);
   const searchResults = useSelector(selectSearchPokemonsResults);
@@ -24,12 +25,10 @@ function Pokemons({ bagged }) {
       downloads the appropriate amount of 
       batches of pokemon info(name, url) 
     */
-    if (bagged) {
-      // place holder for reading bagged pokemons
-    } else if (pokemonsCount < 151) {
+    if (pokemonsCount < 151) {
       dispatch(fetchPokemons());
     }
-  }, [pokemonsCount, bagged, dispatch]);
+  }, [pokemonsCount, dispatch]);
 
   const pokemonsElements = useCallback(() => {
     let from = 1;
@@ -65,41 +64,18 @@ function Pokemons({ bagged }) {
     return pokemons;
   }, [searchResults, searchPokemonsNamePrefix]);
 
+  function searchCb(e) {
+    dispatch(searchPokemonsByNamePrefix(e.target.value));
+  }
   const pokemons = useMemo(() => pokemonsElements(), [pokemonsElements]);
 
   return (
     <>
-      <SearchContainer>
-        <SearchIcon src="/search.png" />
-        <Search
-          type="text"
-          onChange={(e) => dispatch(searchPokemonsByNamePrefix(e.target.value))}
-          value={searchPokemonsNamePrefix}
-          placeholder="search"
-        />
-      </SearchContainer>
-      <PokemonContainer>{bagged ? 'bagged' : pokemons}</PokemonContainer>
+      <Search search={searchPokemonsNamePrefix} searchCbFn={searchCb} />
+      <PokemonContainer>{pokemons}</PokemonContainer>
     </>
   );
 }
-
-const SearchContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 25px;
-`;
-
-const SearchIcon = styled.img`
-  width: 12px;
-  height: 12px;
-  transform: translate(17px, 5px);
-`;
-
-const Search = styled.input`
-  border-radius: 20px;
-  border-color: black;
-  padding-left: 20px;
-`;
 
 const PokemonContainer = styled.div`
   margin-top: 10px;
