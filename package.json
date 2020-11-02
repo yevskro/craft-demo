@@ -2,6 +2,11 @@
   "name": "craft-demo",
   "version": "0.8.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yevskro/craft-demo.git"
+  },
+  "author": "Yevgeniy Skroznikov",
   "dependencies": {
     "@react-google-maps/api": "^1.13.0",
     "@reduxjs/toolkit": "^1.4.0",
