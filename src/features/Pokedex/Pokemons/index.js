@@ -64,14 +64,14 @@ function Pokemons() {
     return pokemons;
   }, [searchResults, searchPokemonsNamePrefix]);
 
-  function searchCb(e) {
+  function onSearch(e) {
     dispatch(searchPokemonsByNamePrefix(e.target.value));
   }
   const pokemons = useMemo(() => pokemonsElements(), [pokemonsElements]);
 
   return (
     <>
-      <Search search={searchPokemonsNamePrefix} searchCbFn={searchCb} />
+      <Search search={searchPokemonsNamePrefix} onSearch={onSearch} />
       <PokemonList>{pokemons}</PokemonList>
     </>
   );
