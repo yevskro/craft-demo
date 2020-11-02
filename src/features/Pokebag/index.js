@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PokemonCard from '../PokemonCard';
-import PokemonList from '../PokemonList';
-import Search from '../../../shared/components/Search';
+import PokemonCard from '../../shared/components/PokemonCard';
+import PokemonList from '../../shared/components/PokemonList';
+import PokemonPlaceholder from '../../shared/components/PokemonPlaceholder';
+import Search from '../../shared/components/Search';
 
 import {
   loadPokemons,
@@ -11,7 +12,7 @@ import {
   selectSearchPokemonsResults,
   selectSearchPokemonsNamePrefix,
   searchPokemonsByNamePrefix,
-} from '../pokebag.slice';
+} from './pokebag.slice';
 
 function PokemonsBag() {
   const dispatch = useDispatch();
@@ -29,6 +30,13 @@ function PokemonsBag() {
 
   const pokemonsElements = useCallback(() => {
     const pokemons = [];
+    if (loadStatus === 'idle') {
+      for (let c = 0; c < 5; c += 1) {
+        pokemons.push(<PokemonPlaceholder key={`pokemon-holder-${c}`} />);
+      }
+      return pokemons;
+    }
+
     const keys = Object.keys(searchResults);
     for (let idx = 0; idx < keys.length; idx += 1) {
       const { url, name } = searchResults[keys[idx]];
