@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import pokedexReducer from '../features/Pokedex/pokedex.slice';
+import pokebagReducer from '../features/Pokedex/BaggedPokemons/pokebag.slice';
 
 const store = configureStore({
   reducer: {
     pokedex: pokedexReducer,
+    pokebag: pokebagReducer,
   },
 });
 
