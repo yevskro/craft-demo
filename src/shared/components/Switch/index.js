@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 function Switch({ left, right, onLeftSelected, onRightSelected }) {
   function handleSwitch(e) {
+    /*
+      odd amount of clicks select the right
+      even amount of clicks select the left
+    */
     const { checked } = e.target;
     if (checked) onRightSelected();
     else onLeftSelected();
