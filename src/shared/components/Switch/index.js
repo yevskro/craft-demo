@@ -4,14 +4,14 @@ import styled from 'styled-components';
 function Switch({
   left,
   right,
-  onLeftSelected,
-  onRightSelected,
-  preselectRight,
+  onLeftSelected /* on when the left switch is selected */,
+  onRightSelected /* on when the right switch is selected */,
+  preselectRight /* select right switch on initial load */,
 }) {
   function handleSwitch(e) {
     /*
-      odd amount of clicks select the right
-      even amount of clicks select the left
+      a checked value means right switch is selected
+      a non checked value means left switch is selecte
     */
     const { checked } = e.target;
     if (checked) onRightSelected();
