@@ -99,7 +99,6 @@ const Search = styled.input`
   border-radius: 20px;
   border-color: black;
   padding-left: 20px;
-  width: 80px;
 `;
 
 const PokemonContainer = styled.div`
