@@ -4,7 +4,13 @@ import styled from 'styled-components';
 function PokemonCard({ url, name, width, height }) {
   return (
     <StyledPokemonCard width={width}>
-      <img src={url} loading="lazy" alt="" width={width} height={height} />
+      <img
+        src={url}
+        loading="lazy"
+        alt={`pokemon card ${name}`}
+        width={width}
+        height={height}
+      />
       <Name>{name}</Name>
     </StyledPokemonCard>
   );
