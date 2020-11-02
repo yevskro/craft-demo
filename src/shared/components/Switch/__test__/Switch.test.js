@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import userEvent from '@testing-library/user-event';
 import Switch from '../index';
 
@@ -34,4 +35,21 @@ test('invokes onLeftSelected and onRightSelected', () => {
   expect(onRightMock).toHaveBeenCalledTimes(1);
   userEvent.click(screen.getByText('left'));
   expect(onLeftMock).toHaveBeenCalledTimes(1);
+});
+
+test('snapshot', async () => {
+  const onLeftMock = jest.fn();
+  const onRightMock = jest.fn();
+
+  const tree = renderer
+    .create(
+      <Switch
+        left="left"
+        right="right"
+        onLeftSelected={onLeftMock}
+        onRightSelected={onRightMock}
+      />
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

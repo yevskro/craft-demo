@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import userEvent from '@testing-library/user-event';
 import Search from '../index';
 
@@ -24,4 +25,12 @@ test('invokes onSearch when typing search', () => {
 
   userEvent.type(screen.getByPlaceholderText('search'), 'test');
   expect(onSearchMock).toHaveBeenCalledTimes(4);
+});
+
+test('snapshot', async () => {
+  const onSearchMock = jest.fn();
+  const tree = renderer
+    .create(<Search search="" onSearch={onSearchMock} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
