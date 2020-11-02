@@ -2,22 +2,12 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import GoogleMap from '../../../shared/components/GoogleMap';
+import GoogleMap from '../../../shared/components/GoogleMap';
 
 import { selectPokemon, fetchPokemon } from '../pokedex.slice';
 import PokemonCard from '../PokemonCard';
 import PokemonPlaceholder from '../PokemonPlaceholder';
 
-/*
-        <GoogleMap
-          apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
-          center={{ lat: 32.821581, lng: -117.022656 }}
-          width="550px"
-          height="350px"
-          markerLocations={pokemon[id] ? pokemon[id].locations : undefined}
-          zoom={9}
-        />
-        */
 function Pokemon() {
   /* using useParams for url slug id */
   const { id } = useParams();
@@ -58,7 +48,16 @@ function Pokemon() {
         <Description>{pokemon.description ?? ''}</Description>
         <br />
       </Body>
-      <Map />
+      <Map>
+        <GoogleMap
+          apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
+          center={{ lat: 32.821581, lng: -117.022656 }}
+          width="600px"
+          height="500px"
+          markerLocations={pokemon.id ? pokemon.locations : undefined}
+          zoom={9}
+        />
+      </Map>
       <Abilities />
     </Details>
   );
@@ -79,7 +78,7 @@ const Detail = styled.span`
 const Description = styled.p`
   margin-top: 15px;
   font-weight: bold;
-  width: 60%;
+  width: 75%;
 `;
 
 const ListTypes = styled.ul`
@@ -95,13 +94,15 @@ const ListType = styled.li`
 const Body = styled.div`
   border: 1px solid red;
   display: inline-block;
-  width: 40%;
+  width: 35%;
+  vertical-align: top;
 `;
 
 const Map = styled.div`
   border: 1px solid red;
-  display: inline-block;
-  width: 59%;
+  display: inline-flex;
+  width: 64%;
+  justify-content: center;
 `;
 
 const Abilities = styled.div`
