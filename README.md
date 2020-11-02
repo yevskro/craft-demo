@@ -2,7 +2,7 @@
 # to install dependencies
     yarn install
 
-# to run in production mode to get cache functionality
+# to run in production mode and get cache functionality locally
     yarn build
     serve -s build [using serve to serve the the build that can be connected via localhost:5000]
 
