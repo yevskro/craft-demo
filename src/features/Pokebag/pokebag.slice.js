@@ -21,8 +21,9 @@ const addPokemon = createAsyncThunk(
   'pokebag/addPokemon',
   async (pokemon, thunkAPI) => {
     let { pokemons } = thunkAPI.getState().pokebag;
+    /* create new pokemons state */
     pokemons = { ...pokemons, ...pokemon };
-    pokemons.count += 1;
+    pokemons.count += 1; /* update count */
     window.localStorage.setItem('pokebag', JSON.stringify(pokemons));
     return pokemons;
   }
@@ -32,9 +33,10 @@ const removePokemon = createAsyncThunk(
   'pokebag/removePokemon',
   async (id, thunkAPI) => {
     let { pokemons } = thunkAPI.getState().pokebag;
+    /* remove pokemon */
     pokemons = { ...pokemons };
     delete pokemons[id];
-    pokemons.count -= 1;
+    pokemons.count -= 1; /* update state */
     window.localStorage.setItem('pokebag', JSON.stringify(pokemons));
     return pokemons;
   }
