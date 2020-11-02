@@ -70,10 +70,12 @@ function Pokemons({ bagged }) {
   return (
     <>
       <SearchContainer>
-        <input
+        <SearchIcon src="/search.png" />
+        <Search
           type="text"
           onChange={(e) => dispatch(searchPokemonsByNamePrefix(e.target.value))}
           value={searchPokemonsNamePrefix}
+          placeholder="search"
         />
       </SearchContainer>
       <PokemonContainer>{bagged ? 'bagged' : pokemons}</PokemonContainer>
@@ -85,6 +87,18 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 25px;
+`;
+
+const SearchIcon = styled.img`
+  width: 12px;
+  height: 12px;
+  transform: translate(17px, 5px);
+`;
+
+const Search = styled.input`
+  border-radius: 20px;
+  padding-left: 20px;
+  width: 80px;
 `;
 
 const PokemonContainer = styled.div`
