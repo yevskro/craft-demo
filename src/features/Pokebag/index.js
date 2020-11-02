@@ -1,4 +1,4 @@
-import React, { useEffect /* useMemo, useCallback */ } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../../shared/components/PokemonCard';
@@ -13,7 +13,7 @@ import {
   searchPokemonsByNamePrefix,
 } from './pokebag.slice';
 
-function Pokebag() {
+function PokemonsBag() {
   const dispatch = useDispatch();
   const loadStatus = useSelector(selectLoadStatus);
   const searchResults = useSelector(selectSearchPokemonsResults);
@@ -27,7 +27,7 @@ function Pokebag() {
     dispatch(searchPokemonsByNamePrefix(e.target.value));
   }
 
-  function pokemonsElements() {
+  const pokemonsElements = useCallback(() => {
     const pokemons = [];
     const keys = Object.keys(searchResults);
     for (let idx = 0; idx < keys.length; idx += 1) {
@@ -39,16 +39,16 @@ function Pokebag() {
       );
     }
     return pokemons;
-  }
+  }, [searchResults]);
 
-  const pokemons = pokemonsElements();
-  console.log(searchResults);
+  const pokemons = useMemo(() => pokemonsElements(), [pokemonsElements]);
+
   return (
     <>
       <Search search={searchPokemonsNamePrefix} onSearch={onSearch} />
-      <PokemonList>{pokemons}</PokemonList>
+      <PokemonList>{pokemons.length ? pokemons : 'empty'}</PokemonList>
     </>
   );
 }
 
-export default Pokebag;
+export default PokemonsBag;
