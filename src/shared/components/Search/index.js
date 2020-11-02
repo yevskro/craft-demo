@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Search({ search, searchCbFn }) {
-  console.log(search);
   return (
     <SearchContainer>
       <SearchIcon src="/search.png" />
