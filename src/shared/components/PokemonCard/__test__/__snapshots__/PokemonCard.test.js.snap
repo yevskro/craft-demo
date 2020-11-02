@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+.c1 {
+  text-transform: capitalize;
+}
+
+.c0 {
+  display: inline-block;
+  width: 96px;
+  text-align: center;
+}
+
+<div
+  className="c0"
+  width="96px"
+>
+  <img
+    alt="pokemon card test"
+    height="96px"
+    loading="lazy"
+    width="96px"
+  />
+  <span
+    className="c1"
+  >
+    test
+  </span>
+</div>
+`;
