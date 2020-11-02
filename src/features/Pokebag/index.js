@@ -24,6 +24,7 @@ function Pokebag() {
   }, [loadStatus, dispatch]);
 
   function onSearch(e) {
+    /* invoke the search the reducer provies */
     dispatch(searchPokemonsByNamePrefix(e.target.value));
   }
 
