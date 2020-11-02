@@ -12,6 +12,8 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import {CacheFirst} from 'workbox-strategies';
+import {CacheableResponsePlugin} from 'workbox-cacheable-response';
 
 clientsClaim();
 
@@ -48,6 +50,7 @@ registerRoute(
 
 // An example runtime caching route for requests that aren't handled by the
 // precache, in this case same-origin .png requests like those from in public/
+
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
   ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
@@ -58,6 +61,58 @@ registerRoute(
       // least-recently used images are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
+  })
+);
+
+registerRoute(
+  ({url}) => url.origin === 'https://raw.githubusercontent.com' &&
+             url.pathname.startsWith('/PokeAPI/sprites/'),
+  new CacheFirst({
+    cacheName: 'pokemon-image-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      })
+    ]
+  })
+);
+
+registerRoute(
+  ({url}) => url.origin === 'https://pokeapi.co' &&
+             url.pathname.startsWith('/api/v2/pokemon-form/'),
+  new CacheFirst({
+    cacheName: 'api-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      })
+    ]
+  })
+);
+
+registerRoute(
+  ({url}) => url.origin === 'https://pokeapi.co' &&
+             url.pathname.startsWith('/api/v2/'),
+  new CacheFirst({
+    cacheName: 'api-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      })
+    ]
+  })
+);
+
+registerRoute(
+  ({url}) => url.origin === 'https://api.craft-demo.net' &&
+             url.pathname.startsWith('/pokemon/'),
+  new CacheFirst({
+    cacheName: 'api-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      })
+    ]
   })
 );
 
