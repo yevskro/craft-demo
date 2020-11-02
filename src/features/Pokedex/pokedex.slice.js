@@ -31,14 +31,14 @@ const fetchPokemons = createAsyncThunk(
     const cutOff = MAX_POKEMONS % MAX_REQUESTS_PER_BATCH;
 
     if (count === MAX_POKEMONS - cutOff) {
-      /* if the count is 150 then we only need to get one more */
+      /* process the remaining final requests */
       fetchedPokemons = await getPokemons(MAX_POKEMONS - cutOff + 1, cutOff);
       return { ...fetchedPokemons, count: MAX_POKEMONS };
     }
 
     /* count works in relation with pokemon id, the
       starting index of the pokemon we get is count + 1,
-      and we wish to download the next 10 */
+      and we wish to download the next MAX_REQUESTS_PER_BATCH */
     fetchedPokemons = await getPokemons(count + 1, MAX_REQUESTS_PER_BATCH);
     return { ...fetchedPokemons, count: count + MAX_REQUESTS_PER_BATCH };
   }
@@ -72,6 +72,7 @@ const pokedexSlice = createSlice({
       state.status = 'loading';
     },
     [fetchPokemons.fulfilled]: (state, action) => {
+      /* payload is an pokemons object with pokemons */
       state.status = 'succeeded';
       state.pokemons = { ...state.pokemons, ...action.payload };
       state.searchPokemons.results = filterPokemonsByNamePrefix(
@@ -87,6 +88,7 @@ const pokedexSlice = createSlice({
       state.status = 'loading';
     },
     [fetchPokemon.fulfilled]: (state, action) => {
+      /* payload is a pokemon object with details */
       state.status = 'succeeded';
       state.pokemon = { ...action.payload };
     },
