@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import Switch from '../../shared/components/Switch';
 import Pokemons from './Pokemons';
-import PokeBag from '../Pokebag';
+import Pokebag from '../Pokebag';
 
-function Pokedex() {
-  const [renderPokebag, setRenderPokeBag] = useState(false);
+function Pokedex({ bag }) {
+  const history = useHistory();
 
   function handleAll() {
-    setRenderPokeBag(false);
+    history.push('/');
   }
 
   function handleBag() {
-    setRenderPokeBag(true);
+    history.push('/bag');
   }
 
   return (
@@ -23,9 +24,10 @@ function Pokedex() {
           right="Bag"
           onLeftSelected={handleAll}
           onRightSelected={handleBag}
+          preselectRight={!!bag}
         />
       </SwitchContainer>
-      {renderPokebag ? <PokeBag /> : <Pokemons />}
+      {bag ? <Pokebag /> : <Pokemons />}
     </>
   );
 }
