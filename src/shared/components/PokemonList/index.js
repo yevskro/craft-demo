@@ -9,11 +9,13 @@ const StyledPokemonList = styled.div`
   text-align: center;
 
   @media (min-width: 400px) {
+    /* tablet view */
     margin-left: 5%;
     margin-right: 5%;
   }
 
   @media (min-width: 700px) {
+    /* desktop view */
     margin-left: 11%;
     margin-right: 11%;
   }
