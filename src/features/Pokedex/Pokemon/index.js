@@ -7,26 +7,34 @@ import GoogleMap from '../../../shared/components/GoogleMap';
 import { selectPokemon, fetchPokemon } from '../pokedex.slice';
 import PokemonCard from '../PokemonCard';
 import PokemonPlaceholder from '../PokemonPlaceholder';
+import { selectAllPokemons, addPokemon, removePokemon } from '../pokebag.slice';
 
 function Pokemon() {
   /* using useParams for url slug id */
   const { id } = useParams();
   const dispatch = useDispatch();
   const pokemon = useSelector(selectPokemon);
+  const baggedPokemons = useSelector(selectAllPokemons);
 
   useEffect(() => {
     dispatch(fetchPokemon(id));
   }, [id, dispatch]);
 
-  const pokemonLoaded = pokemon && pokemon.id === id;
+  const pokemonLoaded = pokemon[id];
+
+  function handleBag(e) {
+    if (e.target.checked) {
+      dispatch(addPokemon(pokemon));
+    } else dispatch(removePokemon(id));
+  }
 
   return (
     <Details>
       <Body>
         {pokemonLoaded ? (
           <PokemonCard
-            url={pokemon.url}
-            name={pokemon.name}
+            url={pokemon[id].url}
+            name={pokemon[id].name}
             width="256px"
             height="256px"
           />
@@ -34,20 +42,30 @@ function Pokemon() {
           <PokemonPlaceholder />
         )}
         <br />
-        <Detail>Height: {pokemonLoaded ? pokemon.height : ''}</Detail>
+        <Detail>Height: {pokemonLoaded ? pokemon[id].height : ''}</Detail>
         <br />
-        <Detail>Weight: {pokemonLoaded ? pokemon.weight : ''}</Detail>
+        <Detail>Weight: {pokemonLoaded ? pokemon[id].weight : ''}</Detail>
         <br />
         <Detail>In Bag</Detail>
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onChange={(e) => {
+            handleBag(e);
+          }}
+          checked={!!baggedPokemons[id]}
+        />
         <br />
         <Detail>Type</Detail>
         <ListTypes>
           {pokemonLoaded
-            ? pokemon.types.map(({ type }) => <ListType>{type.name}</ListType>)
+            ? pokemon[id].types.map(({ type }) => (
+                <ListType>{type.name}</ListType>
+              ))
             : ''}
         </ListTypes>
-        <Description>{pokemonLoaded ? pokemon.description : ''}</Description>
+        <Description>
+          {pokemonLoaded ? pokemon[id].description : ''}
+        </Description>
         <br />
       </Body>
       <Map>
@@ -56,7 +74,7 @@ function Pokemon() {
           center={{ lat: 32.821581, lng: -117.022656 }}
           width="600px"
           height="500px"
-          markerLocations={pokemonLoaded ? pokemon.locations : undefined}
+          markerLocations={pokemonLoaded ? pokemon[id].locations : undefined}
           zoom={9}
         />
       </Map>
@@ -64,7 +82,7 @@ function Pokemon() {
         <AbilitiesHeader>Abilities</AbilitiesHeader>
         <ListAbilities>
           {pokemonLoaded
-            ? pokemon.abilities.map(({ ability }) => (
+            ? pokemon[id].abilities.map(({ ability }) => (
                 <ListAbility>
                   <a href={ability.url}>{ability.name}</a>
                 </ListAbility>
