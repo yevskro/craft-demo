@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useCallback } from 'react';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PokemonCard from '../PokemonCard';
 import PokemonPlaceholder from '../PokemonPlaceholder';
+import PokemonList from '../PokemonList';
 import Search from '../../../shared/components/Search';
 
 import {
@@ -72,24 +72,9 @@ function Pokemons() {
   return (
     <>
       <Search search={searchPokemonsNamePrefix} searchCbFn={searchCb} />
-      <PokemonContainer>{pokemons}</PokemonContainer>
+      <PokemonList>{pokemons}</PokemonList>
     </>
   );
 }
-
-const PokemonContainer = styled.div`
-  margin-top: 10px;
-  text-align: center;
-
-  @media (min-width: 400px) {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-
-  @media (min-width: 700px) {
-    margin-left: 11%;
-    margin-right: 11%;
-  }
-`;
 
 export default Pokemons;
