@@ -3,7 +3,10 @@ function filterPokemonsByNamePrefix(pokemons, prefix) {
   const obj = {};
   for (let idx = 1; idx <= pokemons.count; idx += 1) {
     const subString = pokemons[idx].name.substring(0, prefix.length);
-    if (subString === prefix) obj[idx] = pokemons[idx];
+    /* enforce case insensitivity */
+    if (subString.toUpperCase() === prefix.toUpperCase()) {
+      obj[idx] = pokemons[idx];
+    }
   }
   return obj;
 }
