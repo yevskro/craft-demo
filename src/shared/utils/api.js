@@ -26,14 +26,14 @@ async function getPokemon(id) {
   });
 
   const dataPokeAPI = await responsePokemonAPI.json();
-  pokemon.id = id;
-  pokemon.name = dataPokeAPI.name;
-  pokemon.url = dataPokeAPI.sprites.front_default;
-  pokemon.weight = dataPokeAPI.weight;
-  pokemon.height = dataPokeAPI.height;
-  pokemon.types = dataPokeAPI.types;
-  pokemon.abilities = dataPokeAPI.abilities;
-  pokemon.description =
+  pokemon[id] = {};
+  pokemon[id].name = dataPokeAPI.name;
+  pokemon[id].url = dataPokeAPI.sprites.front_default;
+  pokemon[id].weight = dataPokeAPI.weight;
+  pokemon[id].height = dataPokeAPI.height;
+  pokemon[id].types = dataPokeAPI.types;
+  pokemon[id].abilities = dataPokeAPI.abilities;
+  pokemon[id].description =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 
   const responseSanDiegoAPI = await fetch(`${SAN_DIEGO_MAP_API_URL}/${id}`, {
@@ -43,7 +43,7 @@ async function getPokemon(id) {
   });
 
   const dataMapAPI = await responseSanDiegoAPI.json();
-  pokemon.locations = dataMapAPI.locations;
+  pokemon[id].locations = dataMapAPI.locations;
 
   return pokemon;
 }
