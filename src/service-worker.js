@@ -116,6 +116,18 @@ registerRoute(
   })
 );
 
+registerRoute(
+  ({url}) => url.origin === 'https://maps.googleapis.com' &&
+             url.pathname.startsWith('/maps/api/'),
+  new CacheFirst({
+    cacheName: 'api-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      })
+    ]
+  })
+);
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
