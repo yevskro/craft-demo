@@ -18,10 +18,12 @@ function Pokemon() {
     dispatch(fetchPokemon(id));
   }, [id, dispatch]);
 
+  const pokemonLoaded = pokemon && pokemon.id === id;
+
   return (
     <Details>
       <Body>
-        {pokemon.id ? (
+        {pokemonLoaded ? (
           <PokemonCard
             url={pokemon.url}
             name={pokemon.name}
@@ -32,20 +34,20 @@ function Pokemon() {
           <PokemonPlaceholder />
         )}
         <br />
-        <Detail>Height: {pokemon.height ?? ''}</Detail>
+        <Detail>Height: {pokemonLoaded ? pokemon.height : ''}</Detail>
         <br />
-        <Detail>Weight: {pokemon.weight ?? ''}</Detail>
+        <Detail>Weight: {pokemonLoaded ? pokemon.weight : ''}</Detail>
         <br />
         <Detail>In Bag</Detail>
         <input type="checkbox" />
         <br />
         <Detail>Type</Detail>
         <ListTypes>
-          {pokemon.id
+          {pokemonLoaded
             ? pokemon.types.map(({ type }) => <ListType>{type.name}</ListType>)
             : ''}
         </ListTypes>
-        <Description>{pokemon.description ?? ''}</Description>
+        <Description>{pokemonLoaded ? pokemon.description : ''}</Description>
         <br />
       </Body>
       <Map>
@@ -54,14 +56,14 @@ function Pokemon() {
           center={{ lat: 32.821581, lng: -117.022656 }}
           width="600px"
           height="500px"
-          markerLocations={pokemon.id ? pokemon.locations : undefined}
+          markerLocations={pokemonLoaded ? pokemon.locations : undefined}
           zoom={9}
         />
       </Map>
       <Abilities>
         <AbilitiesHeader>Abilities</AbilitiesHeader>
         <ListAbilities>
-          {pokemon.id
+          {pokemonLoaded
             ? pokemon.abilities.map(({ ability }) => (
                 <ListAbility>
                   <a href={ability.url}>{ability.name}</a>
@@ -89,8 +91,8 @@ const AbilitiesHeader = styled.h3`
 `;
 
 const Details = styled.div`
-  margin-left: 11%;
-  margin-right: 11%;
+  margin-left: 8%;
+  margin-right: 8%;
   margin-top: 70px;
 `;
 
