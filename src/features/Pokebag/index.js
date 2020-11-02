@@ -23,7 +23,7 @@ function PokemonsBag() {
     if (loadStatus === 'idle') dispatch(loadPokemons());
   }, [loadStatus, dispatch]);
 
-  function searchCb(e) {
+  function onSearch(e) {
     dispatch(searchPokemonsByNamePrefix(e.target.value));
   }
 
@@ -45,7 +45,7 @@ function PokemonsBag() {
 
   return (
     <>
-      <Search search={searchPokemonsNamePrefix} searchCbFn={searchCb} />
+      <Search search={searchPokemonsNamePrefix} onSearch={onSearch} />
       <PokemonList>{pokemons.length ? pokemons : 'empty'}</PokemonList>
     </>
   );
