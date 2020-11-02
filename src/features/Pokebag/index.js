@@ -28,6 +28,7 @@ function PokemonsBag() {
   }
 
   const pokemonsElements = useCallback(() => {
+    /* generate PokemonCards based on searchResults */
     const pokemons = [];
     const keys = Object.keys(searchResults);
     for (let idx = 0; idx < keys.length; idx += 1) {
@@ -41,6 +42,8 @@ function PokemonsBag() {
     return pokemons;
   }, [searchResults]);
 
+  /* Memoize so we don't have to compute when there are not changes
+  and the user is switching from All to Bag view */
   const pokemons = useMemo(() => pokemonsElements(), [pokemonsElements]);
 
   return (
