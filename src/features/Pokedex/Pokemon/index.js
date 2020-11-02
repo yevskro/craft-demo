@@ -5,9 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import GoogleMap from '../../../shared/components/GoogleMap';
 
 import { selectPokemon, fetchPokemon } from '../pokedex.slice';
-import PokemonCard from '../PokemonCard';
-import PokemonPlaceholder from '../PokemonPlaceholder';
-import { selectAllPokemons, addPokemon, removePokemon } from '../pokebag.slice';
+import PokemonCard from '../../../shared/components/PokemonCard';
+import PokemonPlaceholder from '../../../shared/components/PokemonPlaceholder';
+import {
+  selectAllPokemons,
+  addPokemon,
+  removePokemon,
+} from '../../Pokebag/pokebag.slice';
 
 function Pokemon() {
   /* using useParams for url slug id */

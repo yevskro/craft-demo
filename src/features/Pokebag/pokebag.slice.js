@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { filterBaggedPokemonsByNamePrefix } from '../../shared/utils/pokebag';
+import { filterBaggedPokemonsByNamePrefix } from '../../shared/utils/pokedex';
 
 const initialState = {
   pokemons: {
