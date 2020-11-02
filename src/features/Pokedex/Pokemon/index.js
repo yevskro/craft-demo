@@ -24,9 +24,11 @@ function Pokemon() {
     dispatch(fetchPokemon(id));
   }, [id, dispatch]);
 
-  const pokemonLoaded = pokemon[id];
+  const pokemonLoaded =
+    pokemon[id]; /* used later to check if we can render details or not */
 
   function handleBag(e) {
+    /* handles removing and adding pokemon from the bag */
     if (e.target.checked) {
       dispatch(addPokemon(pokemon));
     } else dispatch(removePokemon(id));
