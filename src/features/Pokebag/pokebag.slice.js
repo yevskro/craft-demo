@@ -69,12 +69,10 @@ const pokebagSlice = createSlice({
     [loadPokemons.fulfilled]: (state, action) => {
       state.load.status = 'succeeded';
       state.pokemons = { ...state.pokemons, ...action.payload };
-      console.log(JSON.stringify(state.pokemons));
       state.searchPokemons.results = filterBaggedPokemonsByNamePrefix(
         state.pokemons,
         state.searchPokemons.namePrefix
       );
-      console.log(JSON.stringify(state.searchPokemons));
     },
     [loadPokemons.rejected]: (state, action) => {
       state.load.status = 'failed';
