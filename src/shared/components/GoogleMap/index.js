@@ -2,6 +2,8 @@ import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 function Map({ center, markerLocations, width, height, zoom }) {
+  /* markerLocations are an array of lat and lng strings separate
+  by a comma. ie. [['232.32','-323'],['32.23', '177.232']] */
   function markerElements() {
     return markerLocations.map((location) => {
       const [lat, lng] = location.split(',');
