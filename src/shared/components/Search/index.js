@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function Search({ search, onSearch }) {
   return (
     <SearchContainer>
-      <SearchIcon src="/search.png" />
+      <SearchIcon src="/search.png" alt="search icon" />
       <SearchInput
         type="text"
         onChange={(e) => onSearch(e)}
