@@ -97,6 +97,7 @@ const SearchIcon = styled.img`
 
 const Search = styled.input`
   border-radius: 20px;
+  border-color: black;
   padding-left: 20px;
   width: 80px;
 `;
