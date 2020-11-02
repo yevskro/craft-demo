@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Switch({ left, right, onLeftSelected, onRightSelected }) {
+function Switch({
+  left,
+  right,
+  onLeftSelected,
+  onRightSelected,
+  preselectRight,
+}) {
   function handleSwitch(e) {
     /*
       odd amount of clicks select the right
@@ -14,7 +20,10 @@ function Switch({ left, right, onLeftSelected, onRightSelected }) {
 
   return (
     <StyledSwitch>
-      <HiddenCheckbox onClick={(e) => handleSwitch(e)} />
+      <HiddenCheckbox
+        onChange={(e) => handleSwitch(e)}
+        checked={preselectRight}
+      />
       <Text>{left}</Text>
       <Text>{right}</Text>
     </StyledSwitch>
