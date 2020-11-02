@@ -5,8 +5,8 @@ import PokemonCard from '../../../shared/components/PokemonCard';
 import PokemonPlaceholder from '../../../shared/components/PokemonPlaceholder';
 import PokemonList from '../../../shared/components/PokemonList';
 import Search from '../../../shared/components/Search';
-
 import {
+  MAX_POKEMONS,
   selectPokemonsCount,
   selectSearchPokemonsResults,
   selectSearchPokemonsNamePrefix,
@@ -31,8 +31,18 @@ function Pokemons() {
   }, [pokemonsCount, dispatch]);
 
   const pokemonsElements = useCallback(() => {
+    /* 
+      optimizing here a bit, if there is no search
+      we can loop through the pokemons from the pokedex
+      directly using a range from 1...MAX_POKEMON,
+      displaying place holders for pokemon that we haven't
+      downloaded yet.
+
+      if a search is being used we loop through the keys,
+      no need for place holders cause we are invoking a search
+    */
     let from = 1;
-    let to = 151;
+    let to = MAX_POKEMONS;
     let keys;
     const pokemons = [];
     if (searchPokemonsNamePrefix !== '') {

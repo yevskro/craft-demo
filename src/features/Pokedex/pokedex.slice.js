@@ -3,8 +3,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { filterPokemonsByNamePrefix } from '../../shared/utils/pokedex';
 import { getPokemons, getPokemon } from '../../shared/utils/api';
 
-const MAX_REQUESTS_PER_BATCH = 10;
-const MAX_POKEMONS = 151;
+export const MAX_REQUESTS_PER_BATCH = 10;
+export const MAX_POKEMONS = 151;
 
 const initialState = {
   pokemons: {
