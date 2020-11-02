@@ -76,7 +76,7 @@ function Pokemon() {
         <GoogleMap
           apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
           center={{ lat: 32.821581, lng: -117.022656 }}
-          width="600px"
+          width="700px"
           height="500px"
           markerLocations={pokemonLoaded ? pokemon[id].locations : undefined}
           zoom={9}
@@ -108,6 +108,8 @@ const ListAbility = styled.li`
 `;
 
 const AbilitiesHeader = styled.h3`
+  display: inline-block;
+  margin-left: 40%;
   margin-top: 15px;
   text-align: center;
 `;
@@ -126,7 +128,7 @@ const Detail = styled.span`
 const Description = styled.p`
   margin-top: 15px;
   font-weight: bold;
-  width: 75%;
+  width: 60%;
 `;
 
 const ListTypes = styled.ul`
@@ -141,14 +143,13 @@ const ListType = styled.li`
 
 const Body = styled.div`
   display: inline-block;
-  width: 35%;
+  width: 40%;
   vertical-align: top;
 `;
 
 const Map = styled.div`
   display: inline-flex;
-  width: 64%;
-  justify-content: center;
+  width: 59%;
 `;
 
 const Abilities = styled.div``;
