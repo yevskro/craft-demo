@@ -7,14 +7,9 @@ const initialState = {
   pokemons: {
     count: 0,
   },
-  /* baggedPokemons: {
-    count: 0,
-  }, */
   pokemon: {},
   searchPokemons: { results: {}, namePrefix: '' },
-  // searchBaggedPokemons: { results: {}, namePrefix: '' },
   fetch: { status: 'idle', error: null } /* fetch info */,
-  // loadStorage: { status: 'idle', error: null },
 };
 
 const fetchPokemon = createAsyncThunk('pokedex/fetchPokemon', async (id) => {
