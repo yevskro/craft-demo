@@ -9,8 +9,10 @@ import PokemonCard from '../../../shared/components/PokemonCard';
 import PokemonPlaceholder from '../../../shared/components/PokemonPlaceholder';
 import {
   selectAllPokemons,
+  selectLoadStatus,
   addPokemon,
   removePokemon,
+  loadPokemons,
 } from '../../Pokebag/pokebag.slice';
 
 function Pokemon() {
@@ -19,10 +21,19 @@ function Pokemon() {
   const dispatch = useDispatch();
   const pokemon = useSelector(selectPokemon);
   const baggedPokemons = useSelector(selectAllPokemons);
+  const loadStatus = useSelector(selectLoadStatus);
 
   useEffect(() => {
     dispatch(fetchPokemon(id));
   }, [id, dispatch]);
+
+  useEffect(() => {
+    /* this handles the case someone jumped to the pokemons/:id
+      without loading the baggedPokemos, so we then load it here */
+    if (loadStatus === 'idle') {
+      dispatch(loadPokemons());
+    }
+  }, [loadStatus]);
 
   const pokemonLoaded =
     pokemon[id]; /* used later to check if we can render details or not */
