@@ -13,7 +13,7 @@ import {
   searchPokemonsByNamePrefix,
 } from './pokebag.slice';
 
-function PokemonsBag() {
+function Pokebag() {
   const dispatch = useDispatch();
   const loadStatus = useSelector(selectLoadStatus);
   const searchResults = useSelector(selectSearchPokemonsResults);
@@ -54,4 +54,4 @@ function PokemonsBag() {
   );
 }
 
-export default PokemonsBag;
+export default Pokebag;
