@@ -1,3 +1,7 @@
+/* 
+  Yevgeniy Skroznikov 
+  11/02/20
+*/
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Pokedex from '../features/Pokedex';
