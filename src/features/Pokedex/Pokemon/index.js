@@ -141,7 +141,7 @@ const Detail = styled.span`
 const Description = styled.p`
   margin-top: 15px;
   font-weight: bold;
-  width: 55%;
+  width: 260px;
 `;
 
 const ListTypes = styled.ul`
