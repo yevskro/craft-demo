@@ -58,16 +58,40 @@ function Pokemon() {
           zoom={9}
         />
       </Map>
-      <Abilities />
+      <Abilities>
+        <AbilitiesHeader>Abilities</AbilitiesHeader>
+        <ListAbilities>
+          {pokemon.id
+            ? pokemon.abilities.map(({ ability }) => (
+                <ListAbility>
+                  <a href={ability.url}>{ability.name}</a>
+                </ListAbility>
+              ))
+            : ''}
+        </ListAbilities>
+      </Abilities>
     </Details>
   );
 }
 
+const ListAbilities = styled.ul`
+  margin-left: 35px;
+`;
+const ListAbility = styled.li`
+  text-transform: capitalize;
+  margin-top: 30px;
+  margin-bottom: 50px;
+`;
+
+const AbilitiesHeader = styled.h3`
+  margin-top: 15px;
+  text-align: center;
+`;
+
 const Details = styled.div`
   margin-left: 11%;
   margin-right: 11%;
-  margin-top: 80px;
-  border: 1px solid red;
+  margin-top: 70px;
 `;
 
 const Detail = styled.span`
@@ -92,21 +116,17 @@ const ListType = styled.li`
 `;
 
 const Body = styled.div`
-  border: 1px solid red;
   display: inline-block;
   width: 35%;
   vertical-align: top;
 `;
 
 const Map = styled.div`
-  border: 1px solid red;
   display: inline-flex;
   width: 64%;
   justify-content: center;
 `;
 
-const Abilities = styled.div`
-  border: 1px solid red;
-`;
+const Abilities = styled.div``;
 
 export default Pokemon;
