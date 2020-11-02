@@ -31,31 +31,31 @@ function Pokemon() {
   return (
     <Details>
       <Body>
-        {pokemon[id] ? (
+        {pokemon.id ? (
           <PokemonCard
-            url={pokemon[id].url}
-            name={pokemon[id].name}
+            url={pokemon.url}
+            name={pokemon.name}
             width="256px"
             height="256px"
           />
         ) : (
           <PokemonPlaceholder />
         )}
-        <span>Height: {pokemon[id].height ?? ''}</span>
         <br />
-        <span>Weight: {pokemon[id].weight ?? ''}</span>
+        <Detail>Height: {pokemon.height ?? ''}</Detail>
         <br />
-        <span>In Bag</span>
+        <Detail>Weight: {pokemon.weight ?? ''}</Detail>
+        <br />
+        <Detail>In Bag</Detail>
         <input type="checkbox" />
         <br />
-        <span>Type</span>
-        <ul>
-          <li>{pokemon[id].types[0].type.name ?? ''}</li>
-          <li>{pokemon[id].types[1].type.name ?? ''}</li>
-        </ul>
-        <p>
-          <em>{pokemon[id].description ?? ''}</em>
-        </p>
+        <Detail>Type</Detail>
+        <ListTypes>
+          {pokemon.id
+            ? pokemon.types.map(({ type }) => <ListType>{type.name}</ListType>)
+            : ''}
+        </ListTypes>
+        <Description>{pokemon.description ?? ''}</Description>
         <br />
       </Body>
       <Map />
@@ -69,6 +69,27 @@ const Details = styled.div`
   margin-right: 11%;
   margin-top: 80px;
   border: 1px solid red;
+`;
+
+const Detail = styled.span`
+  display: inline-block;
+  margin-top: 15px;
+`;
+
+const Description = styled.p`
+  margin-top: 15px;
+  font-weight: bold;
+  width: 60%;
+`;
+
+const ListTypes = styled.ul`
+  display: inline-block;
+`;
+
+const ListType = styled.li`
+  display: inline-block;
+  text-transform: capitalize;
+  margin-left: 10px;
 `;
 
 const Body = styled.div`

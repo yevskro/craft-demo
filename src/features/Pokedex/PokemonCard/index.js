@@ -5,10 +5,14 @@ function PokemonCard({ url, name, width, height }) {
   return (
     <StyledPokemonCard width={width}>
       <img src={url} loading="lazy" alt="" width={width} height={height} />
-      <span>{name}</span>
+      <Name>{name}</Name>
     </StyledPokemonCard>
   );
 }
+
+const Name = styled.span`
+  text-transform: capitalize;
+`;
 
 const StyledPokemonCard = styled.div`
   display: inline-block;
