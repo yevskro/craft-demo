@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Switch from '../../shared/components/Switch';
 import Pokemons from './Pokemons';
-import BaggedPokemons from './BaggedPokemons';
+import PokemonsBag from './PokemonsBag';
 
 function Pokedex() {
-  const [renderBaggedPokemons, setRenderBaggedPokemons] = useState(false);
+  const [renderPokemonsBag, setRenderPokemonsBag] = useState(false);
 
   function handleAll() {
-    setRenderBaggedPokemons(false);
+    setRenderPokemonsBag(false);
   }
 
   function handleBag() {
-    setRenderBaggedPokemons(true);
+    setRenderPokemonsBag(true);
   }
 
   return (
@@ -25,7 +25,7 @@ function Pokedex() {
           onRightSelected={handleBag}
         />
       </SwitchContainer>
-      {renderBaggedPokemons ? <BaggedPokemons /> : <Pokemons />}
+      {renderPokemonsBag ? <PokemonsBag /> : <Pokemons />}
     </>
   );
 }
