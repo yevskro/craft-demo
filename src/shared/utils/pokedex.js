@@ -16,7 +16,7 @@ function filterBaggedPokemonsByNamePrefix(pokemons, prefix) {
   const obj = {};
   const keys = Object.keys(pokemons);
   for (let idx = 0; idx < keys.length; idx += 1) {
-    if (keys[idx] >= '0' && keys[idx] <= 9) {
+    if (Number(keys[idx])) {
       const subString = pokemons[keys[idx]].name.substring(0, prefix.length);
       /* enforce case insensitivity */
       if (subString.toUpperCase() === prefix.toUpperCase()) {

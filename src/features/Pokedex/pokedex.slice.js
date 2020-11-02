@@ -3,6 +3,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { filterPokemonsByNamePrefix } from '../../shared/utils/pokedex';
 import { getPokemons, getPokemon } from '../../shared/utils/api';
 
+const MAX_REQUESTS_PER_BATCH = 10;
+const MAX_POKEMONS = 151;
+
 const initialState = {
   pokemons: {
     count: 0,
@@ -25,17 +28,19 @@ const fetchPokemons = createAsyncThunk(
     } = thunkApi.getState().pokedex.pokemons; /* get the current count */
     let fetchedPokemons;
 
-    if (count === 150) {
+    const cutOff = MAX_POKEMONS % MAX_REQUESTS_PER_BATCH;
+
+    if (count === MAX_POKEMONS - cutOff) {
       /* if the count is 150 then we only need to get one more */
-      fetchedPokemons = await getPokemons(151, 1);
-      return { ...fetchedPokemons, count: 151 };
+      fetchedPokemons = await getPokemons(MAX_POKEMONS - cutOff + 1, cutOff);
+      return { ...fetchedPokemons, count: MAX_POKEMONS };
     }
 
     /* count works in relation with pokemon id, the
       starting index of the pokemon we get is count + 1,
       and we wish to download the next 10 */
-    fetchedPokemons = await getPokemons(count + 1, 10);
-    return { ...fetchedPokemons, count: count + 10 };
+    fetchedPokemons = await getPokemons(count + 1, MAX_REQUESTS_PER_BATCH);
+    return { ...fetchedPokemons, count: count + MAX_REQUESTS_PER_BATCH };
   }
 );
 
