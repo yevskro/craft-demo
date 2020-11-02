@@ -14,8 +14,11 @@ function App() {
         <Route exact path="/pokemon/:id">
           <Pokemon />
         </Route>
-        <Route path="/">
-          <Pokedex />
+        <Route exact path="/bag">
+          <Pokedex bag />
+        </Route>
+        <Route exact path="/">
+          <Pokedex bag={false} />
         </Route>
       </Switch>
     </Router>
