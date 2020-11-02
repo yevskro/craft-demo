@@ -32,14 +32,15 @@ function Pokemons() {
 
   const pokemonsElements = useCallback(() => {
     /* 
-      optimizing here a bit, if there is no search
-      we can loop through the pokemons from the pokedex
-      directly using a range from 1...MAX_POKEMON,
-      displaying place holders for pokemon that we haven't
-      downloaded yet.
-
-      if a search is being used we loop through the keys,
-      no need for place holders cause we are invoking a search
+      optimizing here a bit, 
+      a search is done everytime there is a batch
+      request regardless if the user wants to search,
+      it just searches by an empty string to get all.
+      if this is the case we can loop through searchResults
+      from 1...MAX_POKEMON, indecies that are not set
+      represent place holders.
+      if there is a search the results may not be sequential
+      so we have to use the Object.keys()
     */
     let from = 1;
     let to = MAX_POKEMONS;
@@ -47,12 +48,16 @@ function Pokemons() {
     const pokemons = [];
     if (searchPokemonsNamePrefix !== '') {
       keys = Object.keys(searchResults);
+      /* looping through the keys array instead of
+      sequentially through the indecies of the searchResults */
       from = 0;
       to = keys.length - 1;
     }
 
     for (let idx = from; idx <= to; idx += 1) {
       if (keys) {
+        /* search is in progress, handle searchResults which holds
+        non-sequential data */
         if (searchResults[keys[idx]]) {
           const { url, name } = searchResults[keys[idx]];
           pokemons.push(
@@ -62,14 +67,17 @@ function Pokemons() {
           );
         }
       } else if (searchResults[idx]) {
+        /* there is no search in progress, searchResults holds sequential data */
         const { url, name } = searchResults[idx];
         pokemons.push(
           <Link to={`/pokemon/${idx}`} key={`pokemon-card-${name}`}>
             <PokemonCard url={url} name={name} width="128px" height="128px" />
           </Link>
         );
-      } else
+      } else {
+        /* there is no search, the data is sequential, empty data at index */
         pokemons.push(<PokemonPlaceholder key={`pokemon-holder-${idx}`} />);
+      }
     }
     return pokemons;
   }, [searchResults, searchPokemonsNamePrefix]);
