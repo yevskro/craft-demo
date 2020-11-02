@@ -18,7 +18,7 @@ function App() {
           <Pokedex bag />
         </Route>
         <Route exact path="/">
-          <Pokedex bag={false} />
+          <Pokedex />
         </Route>
       </Switch>
     </Router>
