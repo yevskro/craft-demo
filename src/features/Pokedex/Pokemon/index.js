@@ -63,7 +63,7 @@ function Pokemon() {
         <ListTypes>
           {pokemonLoaded
             ? pokemon[id].types.map(({ type }) => (
-                <ListType>{type.name}</ListType>
+                <ListType key={type.name}>{type.name}</ListType>
               ))
             : ''}
         </ListTypes>
@@ -87,7 +87,7 @@ function Pokemon() {
         <ListAbilities>
           {pokemonLoaded
             ? pokemon[id].abilities.map(({ ability }) => (
-                <ListAbility>
+                <ListAbility key={ability.name}>
                   <a href={ability.url}>{ability.name}</a>
                 </ListAbility>
               ))
