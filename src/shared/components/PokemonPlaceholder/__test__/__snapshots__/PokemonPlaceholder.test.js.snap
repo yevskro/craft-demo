@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+.c0 {
+  width: 96px;
+  display: inline-block;
+}
+
+.c1 {
+  box-sizing: border-box;
+  border: 15px solid white;
+  width: 96px;
+  height: 96px;
+  background-color: rgba(233,233,233,0.8);
+}
+
+.c2 {
+  box-sizing: border-box;
+  background-color: rgba(233,233,233,0.8);
+  height: 19px;
+  width: 96px;
+  border: 5px solid white;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  />
+  <div
+    className="c2"
+  />
+</div>
+`;
