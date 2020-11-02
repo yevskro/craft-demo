@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PokemonCard from '../PokemonCard';
-import PokemonPlaceholder from '../PokemonPlaceholder';
-import PokemonList from '../PokemonList';
+import PokemonCard from '../../../shared/components/PokemonCard';
+import PokemonPlaceholder from '../../../shared/components/PokemonPlaceholder';
+import PokemonList from '../../../shared/components/PokemonList';
 import Search from '../../../shared/components/Search';
 
 import {
