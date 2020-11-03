@@ -5,6 +5,7 @@ const POKEMON_API_DETAIL_URL = 'https://pokeapi.co/api/v2/pokemon';
 
 const DEFAULT_HEADERS = {
   'content-type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -22,7 +23,6 @@ async function getPokemon(id) {
   const responsePokemonAPI = await fetch(`${POKEMON_API_DETAIL_URL}/${id}`, {
     method: 'GET',
     headers: DEFAULT_HEADERS,
-    mode: 'cors',
   });
 
   const dataPokeAPI = await responsePokemonAPI.json();
@@ -64,7 +64,6 @@ async function getPokemons(fromId, count) {
       fetch(`${POKEMON_API_SPRITE_URL}/${id}`, {
         method: 'GET',
         headers: DEFAULT_HEADERS,
-        mode: 'cors',
       })
         .then((response) => response.json())
         .then((data) => {

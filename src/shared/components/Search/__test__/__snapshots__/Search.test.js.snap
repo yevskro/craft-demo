@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.c1 {
+  width: 12px;
+  height: 12px;
+  -webkit-transform: translate(17px,5px);
+  -ms-transform: translate(17px,5px);
+  transform: translate(17px,5px);
+}
+
+.c2 {
+  border-radius: 20px;
+  border-color: black;
+  padding-left: 20px;
+}
+
+<div
+  className="c0"
+>
+  <img
+    alt="search icon"
+    className="c1"
+    src="/search.png"
+  />
+  <input
+    className="c2"
+    onChange={[Function]}
+    placeholder="search"
+    type="text"
+    value=""
+  />
+</div>
+`;

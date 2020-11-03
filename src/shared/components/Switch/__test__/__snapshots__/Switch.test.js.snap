@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+.c0 {
+  box-shadow: 2px 5px;
+}
+
+.c0 > input {
+  display: none;
+}
+
+.c0 input + span {
+  border: 2px solid black;
+}
+
+.c0 span + span {
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.c1:not(:checked) + span {
+  background-color: #2196f3;
+}
+
+.c1:checked + span + span {
+  background-color: #2196f3;
+}
+
+.c2 {
+  padding: 0px 5px 0px 5px;
+}
+
+<label
+  className="c0"
+>
+  <input
+    className="c1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <span
+    className="c2"
+  >
+    left
+  </span>
+  <span
+    className="c2"
+  >
+    right
+  </span>
+</label>
+`;
